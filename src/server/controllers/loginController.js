@@ -13,12 +13,9 @@ const loginUser = async (req, res, next) => {
     debug(chalk.bgYellowBright.green(error));
     return next(error);
   }
-  console.log(password, user.password);
-  const rightPassword = await bcrypt.compare(
-    "hola",
-    "2b$10$hWefZZ7evSaKHrxEsPq3q.6CdXIVuhisFGBaheD8Do1wCimZLshQG"
-  );
-  console.log(rightPassword);
+
+  const rightPassword = await bcrypt.compare(password, user.password);
+
   if (!rightPassword) {
     const error = new Error("User not found");
     error.code = 401;
