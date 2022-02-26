@@ -1,17 +1,18 @@
-const debug = require("debug")("social:server");
+const express = require("express");
+const cors = require("cors");
+const morgan = require("morgan");
+const { notFoundError, generalError } = require("./middlewares/errors");
+const router = require("./routes/userRouter");
 
-const serverUp = async (app, port) =>
-  new Promise((resolve, reject) => {
-    const server = app.listen(port, () => {
-      debug(`Oi! Server is up on http://localhost:${port}`);
-      resolve();
-    });
-    server.on("error", (error) => {
-      debug(`Error on server: ${error.message}`);
-      reject(error);
-    });
-    server.on("error", (error) => {
-      reject(new Error(`Error on server: ${error.message}`));
-    });
-  });
-module.exports = serverUp;
+const app = express();
+
+app.use(cors());
+app.use(morgan("dev"));
+app.use(express.json());
+
+app.use("/social", router);
+
+app.use(notFoundError);
+app.use(generalError);
+
+module.exports = app;
