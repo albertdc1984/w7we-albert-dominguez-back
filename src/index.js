@@ -6,6 +6,7 @@ const cors = require("cors");
 const databaseConnect = require("./database");
 
 const serverUp = require("./server");
+const { notFoundError, generalError } = require("./server/middlewares/errors");
 
 const app = express();
 app.use(express.json());
@@ -22,3 +23,5 @@ const mongoConnection = process.env.MONGO_STRING;
     debug(chalk.bgRed.white(error.message));
   }
 })();
+app.use(notFoundError);
+app.use(generalError);
