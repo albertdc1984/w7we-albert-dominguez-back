@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
 const chalk = require("chalk");
+const bcrypt = require("bcrypt");
 const debug = require("debug")("social:login:");
 const User = require("../../database/models/User");
 
@@ -10,9 +10,15 @@ const loginUser = async (req, res, next) => {
   if (!user) {
     const error = new Error("User not found");
     error.code = 401;
+    debug(chalk.bgYellowBright.green(error));
     return next(error);
   }
-  const rightPassword = password === user.password;
+  console.log(password, user.password);
+  const rightPassword = await bcrypt.compare(
+    "hola",
+    "2b$10$hWefZZ7evSaKHrxEsPq3q.6CdXIVuhisFGBaheD8Do1wCimZLshQG"
+  );
+  console.log(rightPassword);
   if (!rightPassword) {
     const error = new Error("User not found");
     error.code = 401;
