@@ -1,16 +1,10 @@
 require("dotenv").config();
 const chalk = require("chalk");
-const express = require("express");
 const debug = require("debug")("social:");
-const cors = require("cors");
 const databaseConnect = require("./database");
 
-const serverUp = require("./server");
-const { notFoundError, generalError } = require("./server/middlewares/errors");
-
-const app = express();
-app.use(express.json());
-app.use(cors());
+const serverUp = require("./server/serverUp");
+const app = require("./server/index");
 
 const port = process.env.PORT || 4000;
 const mongoConnection = process.env.MONGO_STRING;
@@ -23,5 +17,3 @@ const mongoConnection = process.env.MONGO_STRING;
     debug(chalk.bgRed.white(error.message));
   }
 })();
-app.use(notFoundError);
-app.use(generalError);
