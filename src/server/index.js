@@ -10,7 +10,7 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use("/social", router);
+app.use("/", router);
 
 app.use(notFoundError);
 app.use(generalError);
