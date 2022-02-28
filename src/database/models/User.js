@@ -24,6 +24,10 @@ const userSchema = new Schema({
     type: [Schema.Types.ObjectId],
     required: false,
   },
+  image: {
+    type: String,
+    required: false,
+  },
 });
 
 const User = model("User", userSchema, "users");
