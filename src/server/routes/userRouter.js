@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const multer = require("multer");
 const loginUser = require("../controllers/loginController");
@@ -5,7 +6,7 @@ const userSignIn = require("../controllers/signInController");
 const { getAllUsers, getOneUser } = require("../controllers/usersController");
 const auth = require("../middlewares/auth");
 
-const upload = multer({ dest: "public/" });
+const upload = multer({ dest: "images/" });
 const router = express.Router();
 
 router.get("/", auth, getAllUsers);
